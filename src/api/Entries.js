@@ -28,12 +28,11 @@ export const addEntry = async (
   );
 };
 
-export const getEntries = (filter = "") => {
+export const getEntries = (filterBy = "", value = "") => {
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
       let entries = [];
-      console.log("xhr.responseText", xhr.responseText);
       if (xhr.responseText) {
         var res = JSON.parse(xhr.responseText);
         // data = JSON.parse(res);
@@ -45,15 +44,20 @@ export const getEntries = (filter = "") => {
       resolve(entries);
     };
     xhr.onerror = reject;
-    if (filter.length === 0) {
+
+    if (filterBy && value) {
+      console.log(
+        "yes",
+        `https://us-central1-envoy-visitor-check-in.cloudfunctions.net/entries?filter[${filterBy}]=${value}`
+      );
       xhr.open(
         "GET",
-        "https://us-central1-envoy-visitor-check-in.cloudfunctions.net/entries"
+        `https://us-central1-envoy-visitor-check-in.cloudfunctions.net/entries?filter[${filterBy}]=${value}`
       );
     } else {
       xhr.open(
         "GET",
-        `https://us-central1-envoy-visitor-check-in.cloudfunctions.net/entries?filter[name]=${filter}`
+        "https://us-central1-envoy-visitor-check-in.cloudfunctions.net/entries"
       );
     }
     xhr.send();
@@ -68,7 +72,7 @@ export const patchEntry = async id => {
     true
   );
 
-  await xhr.send(
+  xhr.send(
     JSON.stringify({
       isSignedOut: true,
       lastSignedOut: Utils.getTodayDate()

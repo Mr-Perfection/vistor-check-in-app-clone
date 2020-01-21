@@ -12,6 +12,12 @@ class ListItemRow extends React.Component {
     };
   }
 
+  handleSignedOut = () => {
+    const { id } = this.props;
+    this.setState({ isSigningOut: true });
+    patchEntry(id);
+  };
+
   getSignoutStatus = () => {
     const { isSignedOut, lastSignedOut } = this.props;
     const { isSigningOut } = this.state;
@@ -26,7 +32,7 @@ class ListItemRow extends React.Component {
     }
     return (
       <button
-        class="btn btn--smaller btn--outline"
+        className="btn btn--smaller btn--outline"
         onClick={this.handleSignedOut}
       >
         Sign out
@@ -34,24 +40,17 @@ class ListItemRow extends React.Component {
     );
   };
 
-  handleSignedOut = () => {
-    const { id } = this.props;
-    this.setState({ isSigningOut: true });
-
-    patchEntry(id);
-  };
-
   render() {
     const { firstName, lastName, notes } = this.props;
     return (
       <tr>
-        <td class="p-2 border-t border-grey-light font-mono text-xs">
+        <td className="p-2 border-t border-grey-light font-mono text-xs">
           {firstName} {lastName}
         </td>
-        <td class="p-2 border-t border-grey-light font-mono text-xs">
+        <td className="p-2 border-t border-grey-light font-mono text-xs">
           {notes}
         </td>
-        <td class="p-1 border-t border-grey-light font-mono text-xs">
+        <td className="p-1 border-t border-grey-light font-mono text-xs">
           {this.getSignoutStatus()}
         </td>
       </tr>

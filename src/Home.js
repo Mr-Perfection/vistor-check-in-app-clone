@@ -20,7 +20,8 @@ class Home extends React.Component {
       lastName: "",
       notes: "",
       search: "",
-      validationError: ""
+      validationError: "",
+      signedOutFilter: false
     };
   }
 
@@ -33,11 +34,6 @@ class Home extends React.Component {
       this.setState({ error: error });
     }
 
-    if (this.props.location) {
-      const values = queryString.parse(this.props.location.search);
-      console.log(values.filter); // "top"
-      console.log(values.origin); // "im"
-    }
     this.setState({
       entries,
       originalEntries: entries,
@@ -51,6 +47,17 @@ class Home extends React.Component {
     this.setState({ isNewVistorModalEnabled: !isNewVistorModalEnabled });
   };
 
+  toggleSignedOut = async () => {
+    const { signedOutFilter, originalEntries } = this.state;
+    let newEntries = originalEntries;
+
+    if (!signedOutFilter) {
+      const signedOutEntries = await getEntries("isSignedOut", "true");
+      newEntries = signedOutEntries;
+    }
+    this.setState({ signedOutFilter: !signedOutFilter, entries: newEntries });
+  };
+
   handleSubmit = async () => {
     // https://us-central1-envoy-visitor-check-in.cloudfunctions.net/addEntry
     // create a new XMLHttpRequest
@@ -62,7 +69,15 @@ class Home extends React.Component {
     }
 
     await addEntry(firstName, lastName, notes);
-    this.setState({ isNewVistorModalEnabled: !isNewVistorModalEnabled });
+    const entries = await getEntries("isSignedOut", "false");
+    console.log("entries", entries);
+    this.setState({
+      entries,
+      isNewVistorModalEnabled: !isNewVistorModalEnabled,
+      firstName: "",
+      lastName: "",
+      notes: ""
+    });
   };
 
   handleInputChange = event => {
@@ -102,7 +117,7 @@ class Home extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div class="container mx-auto mt-12 p-8 border  min-h-screen max-w-3xl">
+        <div className="container mx-auto mt-12 p-8 border  min-h-screen max-w-3xl">
           <Modal
             title="New entry"
             show={isNewVistorModalEnabled}
@@ -111,7 +126,7 @@ class Home extends React.Component {
             <div className="center w-300">
               <input
                 type="text"
-                class="display-block text-sm border max-w-xs w--100"
+                className="display-block text-sm border max-w-xs w--100"
                 placeholder="First name"
                 name="firstName"
                 value={this.state.firstName}
@@ -119,7 +134,7 @@ class Home extends React.Component {
               />
               <input
                 type="text"
-                class="display-block text-sm border max-w-xs w--100"
+                className="display-block text-sm border max-w-xs w--100"
                 placeholder="Last name"
                 name="lastName"
                 value={this.state.lastName}
@@ -127,7 +142,7 @@ class Home extends React.Component {
               />
               <input
                 type="text"
-                class="display-block text-sm border max-w-xs w--100"
+                className="display-block text-sm border max-w-xs w--100"
                 placeholder="Notes"
                 name="notes"
                 value={this.state.notes}
@@ -135,53 +150,59 @@ class Home extends React.Component {
               />
             </div>
             <button
-              class="btn btn--small btn--brand"
+              className="btn btn--small btn--brand"
               onClick={this.handleSubmit}
             >
               Save
             </button>
             <p>{validationError}</p>
           </Modal>
-          <div class="clearfix">
+          <div className="clearfix">
             <button
-              class="btn  btn--brand float-right ml-2"
+              className="btn  btn--brand float-right ml-2"
               onClick={this.toggleModal}
             >
-              <i class="fas fa-user"></i>&nbsp;&nbsp;New visitor
+              <i className="fas fa-user"></i>&nbsp;&nbsp;New visitor
             </button>
             <input
               type="text"
-              class="p-2 text-sm border float-right max-w-xs w-full"
+              className="p-2 text-sm border float-right max-w-xs w-full"
               placeholder="Search"
               name="search"
               value={this.state.search}
               onChange={this.handleSearchChange}
             />
+            <button
+              className="btn  btn--brand float-right ml-2"
+              onClick={this.toggleSignedOut}
+            >
+              <i className="fas fa-user"></i>&nbsp;&nbsp;Signed Out
+            </button>
             <img
               src="https://dashboard.envoy.com/assets/images/logo-small-red-ba0cf4a025dd5296cf6e002e28ad38be.svg"
               alt="Envoy Logo"
               width="31"
-              class="py3 block"
+              className="py3 block"
             />
           </div>
-          <div class="flex-grow h-screen overflow-y-scroll">
-            <div class="mx-auto">
-              <div class="mt-8">
-                <table class="w-full">
+          <div className="flex-grow h-screen overflow-y-scroll">
+            <div className="mx-auto">
+              <div className="mt-8">
+                <table className="w-full">
                   <thead>
                     <tr>
-                      <th class="text-sm font-semibold text-grey-darker p-2 bg-grey-lightest">
+                      <th className="text-sm font-semibold text-grey-darker p-2 bg-grey-lightest">
                         Name
                       </th>
-                      <th class="text-sm font-semibold text-grey-darker p-2 bg-grey-lightest">
+                      <th className="text-sm font-semibold text-grey-darker p-2 bg-grey-lightest">
                         Notes
                       </th>
-                      <th class="text-sm font-semibold text-grey-darker p-1 bg-grey-lightest">
+                      <th className="text-sm font-semibold text-grey-darker p-1 bg-grey-lightest">
                         Signed out
                       </th>
                     </tr>
                   </thead>
-                  <tbody class="align-baseline">
+                  <tbody className="align-baseline">
                     {entries.map(
                       (
                         {
@@ -210,20 +231,20 @@ class Home extends React.Component {
                   </tbody>
                 </table>
 
-                <div class="mt-8 mb-8">
-                  <p class="mt-2">
-                    <div class="flex">
-                      <a href="#" class="mr-4 px-1">
+                <div className="mt-8 mb-8">
+                  <p className="mt-2">
+                    <div className="flex">
+                      <a href="#" className="mr-4 px-1">
                         {" "}
-                        <i class="fas fa-angle-left"></i>{" "}
+                        <i className="fas fa-angle-left"></i>{" "}
                       </a>
-                      <div class="flex text-center mr-4">
-                        <span class="w-20">1</span>
-                        <span class="w-20">&nbsp;/&nbsp;</span>
-                        <span class="w-20">2</span>
+                      <div className="flex text-center mr-4">
+                        <span className="w-20">1</span>
+                        <span className="w-20">&nbsp;/&nbsp;</span>
+                        <span className="w-20">2</span>
                       </div>
-                      <a href="#" class="mr-4 px-1">
-                        <i class="fas fa-angle-right"></i>
+                      <a href="#" className="mr-4 px-1">
+                        <i className="fas fa-angle-right"></i>
                       </a>
                     </div>
                   </p>
