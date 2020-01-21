@@ -4,7 +4,7 @@ const entriesTest = [
     firstName: "Lazar",
     lastName: "Vicary",
     isSignedOut: false,
-    lastSignedOutDate: "5/11/2019",
+    lastSignedOut: "5/11/2019",
     notes: "Executive Secretary"
   },
   {
@@ -12,7 +12,7 @@ const entriesTest = [
     firstName: "Ellswerth",
     lastName: "Meas",
     isSignedOut: true,
-    lastSignedOutDate: "2/26/2019",
+    lastSignedOut: "2/26/2019",
     notes: "Dental Hygienist"
   },
   {
@@ -20,7 +20,7 @@ const entriesTest = [
     firstName: "Jacinda",
     lastName: "Rippen",
     isSignedOut: false,
-    lastSignedOutDate: "9/1/2019",
+    lastSignedOut: "9/1/2019",
     notes: "Civil Engineer"
   },
   {
@@ -28,7 +28,7 @@ const entriesTest = [
     firstName: "Johnette",
     lastName: "Prise",
     isSignedOut: false,
-    lastSignedOutDate: "8/12/2019",
+    lastSignedOut: "8/12/2019",
     notes: "Administrative Assistant IV"
   },
   {
@@ -36,7 +36,7 @@ const entriesTest = [
     firstName: "Gweneth",
     lastName: "Dandison",
     isSignedOut: false,
-    lastSignedOutDate: "7/7/2019",
+    lastSignedOut: "7/7/2019",
     notes: "Environmental Tech"
   },
   {
@@ -44,7 +44,7 @@ const entriesTest = [
     firstName: "Donalt",
     lastName: "Rounsefell",
     isSignedOut: true,
-    lastSignedOutDate: "11/9/2019",
+    lastSignedOut: "11/9/2019",
     notes: "Media Manager III"
   },
   {
@@ -52,7 +52,7 @@ const entriesTest = [
     firstName: "Drusie",
     lastName: "Strognell",
     isSignedOut: true,
-    lastSignedOutDate: "5/26/2019",
+    lastSignedOut: "5/26/2019",
     notes: "Pharmacist"
   },
   {
@@ -60,7 +60,7 @@ const entriesTest = [
     firstName: "Megan",
     lastName: "Weddeburn",
     isSignedOut: true,
-    lastSignedOutDate: "4/10/2019",
+    lastSignedOut: "4/10/2019",
     notes: "General Manager"
   },
   {
@@ -68,7 +68,7 @@ const entriesTest = [
     firstName: "Sandra",
     lastName: "Ellcock",
     isSignedOut: true,
-    lastSignedOutDate: "12/8/2019",
+    lastSignedOut: "12/8/2019",
     notes: "Environmental Specialist"
   },
   {
@@ -76,7 +76,7 @@ const entriesTest = [
     firstName: "Booth",
     lastName: "Cliss",
     isSignedOut: true,
-    lastSignedOutDate: "5/5/2019",
+    lastSignedOut: "5/5/2019",
     notes: "Chief Design Engineer"
   },
   {
@@ -84,7 +84,7 @@ const entriesTest = [
     firstName: "Mark",
     lastName: "Marzellano",
     isSignedOut: false,
-    lastSignedOutDate: "4/25/2019",
+    lastSignedOut: "4/25/2019",
     notes: "Environmental Specialist"
   },
   {
@@ -92,7 +92,7 @@ const entriesTest = [
     firstName: "Shandy",
     lastName: "Labrone",
     isSignedOut: true,
-    lastSignedOutDate: "11/3/2019",
+    lastSignedOut: "11/3/2019",
     notes: "Payment Adjustment Coordinator"
   },
   {
@@ -100,7 +100,7 @@ const entriesTest = [
     firstName: "Hetti",
     lastName: "Deners",
     isSignedOut: false,
-    lastSignedOutDate: "3/4/2019",
+    lastSignedOut: "3/4/2019",
     notes: "Internal Auditor"
   },
   {
@@ -108,7 +108,7 @@ const entriesTest = [
     firstName: "Sydney",
     lastName: "Hirth",
     isSignedOut: true,
-    lastSignedOutDate: "3/20/2019",
+    lastSignedOut: "3/20/2019",
     notes: "Human Resources Manager"
   },
   {
@@ -116,7 +116,7 @@ const entriesTest = [
     firstName: "Alfy",
     lastName: "Palumbo",
     isSignedOut: true,
-    lastSignedOutDate: "8/22/2019",
+    lastSignedOut: "8/22/2019",
     notes: "Tax Accountant"
   }
 ];

@@ -1,17 +1,19 @@
 import React from "react";
+import { patchEntry } from "../api/Entries";
 import "../App.scss";
 
 class ListItemRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: props.id,
       isSignedOut: props.isSignedOut,
       isSigningOut: false
     };
   }
 
   getSignoutStatus = () => {
-    const { isSignedOut, signedOutDate } = this.props;
+    const { isSignedOut, lastSignedOut } = this.props;
     const { isSigningOut } = this.state;
 
     if (isSigningOut) {
@@ -20,7 +22,7 @@ class ListItemRow extends React.Component {
 
     // Already signed out.
     if (isSignedOut) {
-      return <div>{signedOutDate}</div>;
+      return <div>{lastSignedOut}</div>;
     }
     return (
       <button
@@ -33,8 +35,10 @@ class ListItemRow extends React.Component {
   };
 
   handleSignedOut = () => {
+    const { id } = this.props;
     this.setState({ isSigningOut: true });
-    // Handle api call to mark this as signed out with signed out date.
+
+    patchEntry(id);
   };
 
   render() {

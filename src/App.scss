@@ -274,3 +274,14 @@ input:focus + label.focus\:border-red {border-color: $color-red;}
   }
 }
 
+.center {
+    margin: 0 auto;
+}
+
+.w-300 {
+    width: 300px;
+}
+
+.w--100 {
+    width: 100%;
+}
